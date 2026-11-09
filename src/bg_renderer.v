@@ -11,12 +11,14 @@ module bg_renderer(
 
 	//(* rom_style = "block" *)	// Infer ROM as Block RAM
 	reg [5:0] mem[69631:0]; 
+	reg [5:0] bg[76799:0]; // 10 x 30, 160 x 480
 	wire [16:0] mem_index;
 	wire [7:0] tile;
 	wire [3:0] offsetX, offsetY;
 
 	initial begin
 		$readmemh("../data/mariobg256j.mem", mem);
+		$readmemh("../data/bg1.mem", bg);
 	end
 
 	// delayed pixel count
@@ -47,7 +49,8 @@ module bg_renderer(
 			color <= 0;
 		end
 		else begin
-			color <= (tile == 0)? 6'h3F : mem[mem_index];
+			color <= (tile == 0)? 6'h3F : mem[mem_index+10];
+			// color <= (tile == 0)? 6'h3F : mem[mem_index];
 		end
 	end
 
