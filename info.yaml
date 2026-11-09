@@ -25,8 +25,8 @@ project:
     #- "19_text_screen_gen_playground.v"
     #- "19_ascii_rom_playground.v"
     #- "13_simpledualportMem.v"
-    #- "gamepad_pmod.v"
-    #- "10_debounce.v" 
+    - "gamepad_pmod.v"
+    - "10_debounce.v" 
     # 3. Background Tile
     #- "23_bg_rom.v"
     #- "23_map_rom.v"
@@ -39,6 +39,7 @@ project:
     - "RAM.v"
     - "RAM2.v"
     - "map_rom.v"
+    - "sprite_renderer.v"
 
 # The pinout of your project. Leave unused pins blank. DO NOT delete or add any pins.
 # This section is for the datasheet/website. Use descriptive names (e.g., RX, TX, MOSI, SCL, SEG_A, etc.).
