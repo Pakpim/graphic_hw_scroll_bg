@@ -88,7 +88,7 @@ module tt_um_vga_example (
 	
 	RAM2 #(.DATA_SIZE(24), .ADDR_SIZE(6)) vRAM(.clk(clk),.dat_in(vRAM_dat_in),.wr_adr(vRAM_wadd),.wr_en(vRAM_we),.dat_out(vRAM_dat_out),.rd_adr(vRAM_radd));
 	
-	sprite_renderer sprite_renderer1(.clk(clk),.x_scroll_offset(scrollOffset),.x(x),.y(y),.sprite_data(vRAM_dat_out),.idx(vRAM_radd),.color(sprites_color),.debug_fin(debug_sprite_fin));
+	// sprite_renderer sprite_renderer1(.clk(clk),.x_scroll_offset(scrollOffset),.x(x),.y(y),.sprite_data(vRAM_dat_out),.idx(vRAM_radd),.color(sprites_color),.debug_fin(debug_sprite_fin));
 
 	
 	
