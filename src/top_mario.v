@@ -77,6 +77,37 @@ module tt_um_vga_example (
 	reg [7:0] state = 0;
 	reg debug_state = 0;
 
+  wire inp_b, inp_y, inp_select, inp_start, inp_up, inp_down, inp_left, inp_right, inp_a, inp_x, inp_l, inp_r;
+  wire [11:0] gamepad_in = {inp_b, inp_y, inp_select, inp_start, inp_up, inp_down, inp_left, inp_right, inp_a, inp_x, inp_l, inp_r};
+
+
+  gamepad_pmod_single driver (
+    // Inputs:
+    .rst_n(rst_n),
+    .clk(clk),
+    .pmod_data(ui_in[6]),
+    .pmod_clk(ui_in[5]),
+    .pmod_latch(ui_in[4]),
+    // Outputs:
+    .b(inp_b),
+    .y(inp_y),
+    .select(inp_select),
+    .start(inp_start),
+    .up(inp_up),
+    .down(inp_down),
+    .left(inp_left),
+    .right(inp_right),
+    .a(inp_a),
+    .x(inp_x),
+    .l(inp_l),
+    .r(inp_r)
+  );
+
+  always @(posedge vsync) begin
+    if (inp_right && scrollOffset < 640) scrollOffset <= scrollOffset + 16;
+    if (inp_left && scrollOffset > 0) scrollOffset <= scrollOffset -16;
+
+  end
 
 	assign x_scroll = pix_x + scrollOffset;
 	
