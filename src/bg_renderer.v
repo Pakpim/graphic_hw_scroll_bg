@@ -11,10 +11,11 @@ module bg_renderer(
 
 	//(* rom_style = "block" *)	// Infer ROM as Block RAM
 	reg [5:0] mem[69631:0]; 
-	reg [5:0] bg[76799:0]; // 10 x 30, 160 x 480
+	reg [5:0] bg[76799:0]; // 320 x 240
 	wire [16:0] mem_index;
 	wire [7:0] tile;
 	wire [3:0] offsetX, offsetY;
+  wire [16:0] bg_index;
 
 	initial begin
 		$readmemh("../data/mariobg256j.mem", mem);
@@ -43,13 +44,14 @@ module bg_renderer(
 	// tile ready 1 clk delay from x,y
 	map_rom map_rom1(.clk(clk),.x_scroll(x_scroll[10:4]),.y(y),.tile(tile));
 
-	
+	assign bg_index = pix_y1_reg[9:1] * 320 + ((pix_x1_reg[9:1] % 480 < 240) ? (pix_x1_reg[9:1] % 480): 480 - (pix_x1_reg[9:1] % 480));
+
 	always @(posedge clk) begin	
 		if(reset)begin
 			color <= 0;
 		end
 		else begin
-			color <= (tile == 0)? 6'h3F : mem[mem_index+10];
+			color <= (tile == 0)? bg[bg_index] : mem[mem_index];
 			// color <= (tile == 0)? 6'h3F : mem[mem_index];
 		end
 	end
